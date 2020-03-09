@@ -1,0 +1,165 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/starter-sample.css">
+  <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="print">
+    <h3 class="text-center">Public Dice with ETH Blockchain</h3>
+    <div>
+      Using a <input type="text" id="max" value="6">-sided dice,<br>
+      you win when the value >= <input type="text" id="win" value="4">
+      <button class="btn btn-primary" id="start">Start</button>
+    </div>
+  </div>
+
+  <div class="switch">
+    <h3 class="text-center" id="result"></h3>
+    <h3 class="text-center" id="result2"></h3>
+    <h5 class="text-center" id="print"></h5>
+    <h5 class="text-center" id="permlink"></h5>
+  </div>
+
+</div>
+
+<script>
+
+  const digits = 8; // should determine by max
+  var block = '';
+
+  $("#start").on("click", function () {
+     get_cur();
+  });
+
+    var prev = '';
+    function get_cur(){
+      let url = 'https://api.blockcypher.com/v1/eth/main';
+      $.ajax ({
+        url : url,
+        type : 'get',
+        timeout : 5000,
+        success : function ( contents ) {
+          console.log(contents.height);
+                    //
+          let c_block = Number(contents.height);
+          if (prev === ''){
+            if (block === undefined){
+              block = c_block + 1;  // block = c_block // for simplified mode
+            }else{
+              console.log("block set");
+              block = Number(block);
+            }
+            if (rblock !== undefined){
+              console.log("rblock set");
+              block = c_block + Number(rblock);
+            }
+          }
+          prev = contents.height;
+          let my_url = 'https://obniz.io/users/221/repo/200309_bc_dice.html?block=' + block
+          document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">permlink</a>';
+
+          if (c_block < block){
+            // still need waiting
+            let block_ahead = block - c_block;
+            let est = block_ahead * 15;
+            document.getElementById('print').innerHTML = 'You need to wait for ' + block_ahead + ' more blocks (about ' + est + ' seconds)';
+            setTimeout(get_cur, 15000);
+          }
+          else{
+            // can show result
+            prev = '';
+            get_result();
+          }
+        },
+        error : function ( request, errorMessage ) {
+          console.log('Network error. Reconnecting.. ' + errorMessage);
+          if (prev === ''){
+            document.getElementById('print').innerHTML = 'Network error. Rconnecting.. ';
+          }
+          setTimeout(get_cur, 5000);
+        }
+      });
+    }
+    function get_result(){
+      let url = 'https://api.blockcypher.com/v1/eth/main/blocks/'+block;
+      $.ajax ({
+        url : url,
+        type : 'get',
+        timeout : 5000,
+        success : function ( contents ) {
+          console.log(contents);
+            var rurl = url;//contents.latest_url;
+            var hash = '<a href="' + rurl + '">check</a>';
+            document.getElementById('print').innerHTML = hash;
+            prev = contents.height;
+            let r = getRand(contents.hash,digits);
+            console.log(r);
+            let max = Number(document.getElementById('max').value);
+            let win = Number(document.getElementById('win').value);
+            let dice = Math.floor(r*max + 1);
+            let win_lose = (dice - win >= 0);
+//             let win_lose = (r*max - win >= 0);
+            let win_lose_msg = (win_lose)? "You Win!":"You Lose!";
+            document.getElementById('result').innerHTML = dice;
+            document.getElementById('result2').innerHTML = win_lose_msg;
+        },
+        error : function ( request, errorMessage ) {
+          console.log('Network error. Reconnecting.. ' + errorMessage);
+          if (prev === ''){
+            document.getElementById('print').innerHTML = 'Network error. Rconnecting.. ';
+          }
+          setTimeout(get_result, 5000);
+        }
+      });
+    }
+  function getRand(hash,digits){
+    let x = hash.substr(hash.length-digits,digits);
+    let d = parseInt(x, 16);
+    let rnd = d / Math.pow(16,digits);
+    return rnd;
+  }
+
+  function getUrlVars()
+  {
+	var vars = [], max = 0, hash = "", array = "";
+	var url = window.location.search;
+
+	hash  = url.slice(1).split('&');
+	max = hash.length;
+	for (var i = 0; i < max; i++) {
+		array = hash[i].split('=');
+		vars.push(array[0]);
+		vars[array[0]] = decodeURI(array[1]);
+	}
+	return vars;
+  }
+
+  window.onload = function () {
+    para = getUrlVars();
+    block = para["block"];
+    console.log(block);
+    rblock = para["rblock"];
+    console.log(rblock);
+    max = para["max"];
+    console.log(max);
+    if (max !== undefined){
+      document.getElementById('max').value = max;
+    }
+    win = para["win"];
+    if (win !== undefined){
+      document.getElementById('win').value = win;
+    }
+    console.log(win);
+
+    if (block !== undefined || rblock !== undefined){
+      get_cur();
+    }
+  }
+</script>
+</body>
+</html>

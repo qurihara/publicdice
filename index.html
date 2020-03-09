@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/starter-sample.css">
+  <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="print">
+    <h3 class="text-center">Public Dice with ETH Blockchain</h3>
+    <div>
+      Using a <input type="text" id="max" value="6">-sided dice,<br>
+      you win when the value >= <input type="text" id="win" value="4"><br>
+      <button class="btn btn-primary" id="start1">Do Now</button>
+      <button class="btn btn-primary" id="start2">10 minutes later</button>
+      <button class="btn btn-primary" id="start3">1 hour later</button>
+      <button class="btn btn-primary" id="start4">1 day later</button>
+    </div>
+  </div>
+
+  <div class="switch">
+    <h5 class="text-center" id="permlink"></h5>
+  </div>
+
+</div>
+
+<script>
+
+  $("#start1").on("click", function () {
+    let rblock = 1;
+    go_url(rblock);
+  });
+
+  $("#start2").on("click", function () {
+    let rblock = 10*60/15;
+    go_url(rblock);
+  });
+  $("#start3").on("click", function () {
+    let rblock = 60*60/15;
+    go_url(rblock);
+  });
+
+  $("#start4").on("click", function () {
+    let rblock = 24*60*60/15;
+    go_url(rblock);
+  });
+
+  function go_url(rblock){
+    let max = Number(document.getElementById('max').value);
+    let win = Number(document.getElementById('win').value);
+    let my_url = 'https://obniz.io/users/221/repo/200309_bc_dice.html?rblock=' + rblock + '&max=' + max + '&win=' + win;
+    document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">link</a>';
+//     window.location.href = my_rul;
+  }
+
+</script>
+</body>
+</html>
