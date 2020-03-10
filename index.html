@@ -15,16 +15,18 @@
       Using a <input type="text" id="max" value="6">-sided dice,<br>
       you win when the value >= <input type="text" id="win" value="4"><br>
       <button class="btn btn-primary" id="start1">Do Now</button>
+      <button class="btn btn-primary" id="start5">Do Now (simplified)</button>
       <button class="btn btn-primary" id="start2">10 minutes later</button>
       <button class="btn btn-primary" id="start3">1 hour later</button>
       <button class="btn btn-primary" id="start4">1 day later</button>
+      <button class="btn btn-primary" id="start6">5 day later</button>
     </div>
   </div>
 
   <div class="switch">
+    <h5 class="text-center" id="print"></h5>
     <h5 class="text-center" id="permlink"></h5>
   </div>
-
 </div>
 
 <script>
@@ -34,30 +36,78 @@
 
   $("#start1").on("click", function () {
     let rblock = 1;
-    go_url(rblock);
+//     go_url(rblock);
+    get_cur(rblock);
   });
 
   $("#start2").on("click", function () {
     let rblock = 10*60/15;
-    go_url(rblock);
+//     go_url(rblock);
+    get_cur(rblock);
   });
   $("#start3").on("click", function () {
     let rblock = 60*60/15;
-    go_url(rblock);
+//     go_url(rblock);
+    get_cur(rblock);
   });
 
   $("#start4").on("click", function () {
     let rblock = 24*60*60/15;
-    go_url(rblock);
+//     go_url(rblock);
+    get_cur(rblock);
   });
 
-  function go_url(rblock){
-    let max = Number(document.getElementById('max').value);
-    let win = Number(document.getElementById('win').value);
-    let my_url = urlbase + '?rblock=' + rblock + '&max=' + max + '&win=' + win;
-    document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">link</a>';
-//     window.location.href = my_rul;
-  }
+  $("#start5").on("click", function () {
+    let rblock = 0;
+//     go_url(rblock);
+    get_cur(rblock);
+  });
+
+  $("#start6").on("click", function () {
+    let rblock = 5*24*60*60/15;
+//     go_url(rblock);
+    get_cur(rblock);
+  });
+
+
+//   function go_url(rblock){
+//     let max = Number(document.getElementById('max').value);
+//     let win = Number(document.getElementById('win').value);
+//     let my_url = urlbase + '?rblock=' + rblock + '&max=' + max + '&win=' + win;
+//     document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">link</a>';
+// //     window.location.href = my_url;
+//   }
+
+    var prev = '';
+    function get_cur(rblock){
+      let url = 'https://api.blockcypher.com/v1/eth/main';
+      $.ajax ({
+        url : url,
+        type : 'get',
+        timeout : 5000,
+        success : function ( contents ) {
+          console.log(contents.height);
+                    //
+          let c_block = Number(contents.height);
+          if (prev === ''){
+              block = c_block + rblock;
+          }
+          prev = contents.height;
+          let max = Number(document.getElementById('max').value);
+          let win = Number(document.getElementById('win').value);
+          let my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
+//           document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">permalink</a>';
+          window.location.href = my_url;
+        },
+        error : function ( request, errorMessage ) {
+          console.log('Network error. Reconnecting.. ' + errorMessage);
+          if (prev === ''){
+            document.getElementById('print').innerHTML = 'Network error. Rconnecting.. ';
+          }
+          setTimeout(get_cur, 5000);
+        }
+      });
+    }
 
 </script>
 </body>

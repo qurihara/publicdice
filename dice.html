@@ -57,10 +57,10 @@
               console.log("block set");
               block = Number(block);
             }
-            if (rblock !== undefined){
-              console.log("rblock set");
-              block = c_block + Number(rblock);
-            }
+//             if (rblock !== undefined){
+//               console.log("rblock set");
+//               block = c_block + Number(rblock);
+//             }
           }
           prev = contents.height;
           let max = Number(document.getElementById('max').value);
@@ -149,8 +149,8 @@
     para = getUrlVars();
     block = para["block"];
     console.log(block);
-    rblock = para["rblock"];
-    console.log(rblock);
+//     rblock = para["rblock"];
+//     console.log(rblock);
     max = para["max"];
     console.log(max);
     if (max !== undefined){
@@ -162,7 +162,8 @@
     }
     console.log(win);
 
-    if (block !== undefined || rblock !== undefined){
+//     if (block !== undefined || rblock !== undefined){
+    if (block !== undefined){
       get_cur();
     }
   }
