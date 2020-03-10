@@ -29,6 +29,9 @@
 
 <script>
 
+  // const urlbase = 'https://obniz.io/users/221/repo/200309_bc_dice.html';
+  const urlbase = 'https://qurihara.github.io/publicdice/dice.html';
+
   const digits = 8; // should determine by max
   var block = '';
 
@@ -60,14 +63,17 @@
             }
           }
           prev = contents.height;
-          let my_url = 'https://qurihara.github.io/publicdice/dice.html?block=' + block
-          document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">permlink</a>';
+          let max = Number(document.getElementById('max').value);
+          let win = Number(document.getElementById('win').value);
+          let my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
+          document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">permalink</a>';
 
           if (c_block < block){
             // still need waiting
             let block_ahead = block - c_block;
             let est = block_ahead * 15;
-            document.getElementById('print').innerHTML = 'You need to wait for ' + block_ahead + ' more blocks (about ' + est + ' seconds)';
+            document.getElementById('print').innerHTML = 'You need to wait for ' + block_ahead + ' more blocks (about ' + est + ' seconds)'
+            + '<br><img src= https://www.pixelimage.jp/blog/images_loading_gif/icon_loader_d_ww_01_s1.gif>';
             setTimeout(get_cur, 15000);
           }
           else{
