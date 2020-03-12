@@ -51,32 +51,40 @@
 
 <script>
 
-//  const urlbase = 'https://obniz.io/users/221/repo/200309_bc_dice.html';
+  // const urlbase = 'https://obniz.io/users/221/repo/200309_bc_dice.html';
   const urlbase = 'https://qurihara.github.io/publicdice/dice.html';
 
   const glot = new Glottologist();
   glot.assign('using', {
+    en: 'Using a',
     ja: ''
   });
   glot.assign('sided', {
+    en: '-sided dice,',
     ja: '面サイコロを振って'
   });
   glot.assign('youwin', {
+    en: 'you win when the value is greater than or equal to',
     ja: ''
   });
   glot.assign('when', {
+    en: '',
     ja: '以上の値が出たらあなたの勝ちです。'
   });
   glot.assign('donow', {
+    en: 'Do Now',
     ja: '今すぐ勝負'
   });
   glot.assign('mins', {
+    en: 'minutes later',
     ja: '分後に勝負'
   });
   glot.assign('hours', {
+    en: 'hours later',
     ja: '時間後に勝負'
   });
   glot.assign('days', {
+    en: 'days later',
     ja: '日後に勝負'
   });
   glot.render();
