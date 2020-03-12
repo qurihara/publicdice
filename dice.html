@@ -16,9 +16,11 @@
       <div glot-model="using">Using a</div>
       <input type="text" id="max" value="6" readonly>
       <div glot-model="sided">-sided dice,</div><br>
-      <div glot-model="youwin">you win when the value is greater than or equal to</div>
-      <input type="text" id="win" value="4" readonly>
-      <div glot-model="when"></div><br>
+      <div id="winlose"display="none">
+        <div glot-model="youwin">you win when the value is greater than or equal to</div>
+        <input type="text" id="win" value="4" readonly>
+        <div glot-model="when"></div><br>
+      </div>
     </div>
   </div>
 
@@ -33,7 +35,7 @@
     <button onclick="copyToClipboard()" class="btn btn-primary" >
       <div glot-model="copylink">Copy link</div>
     </button><br>
-    <h5 class="text-center" id="home"><a href="https://qurihara.github.io/publicdice/">home</a></h5>
+    <h5 class="text-center" id="home"><a href="javascript:history.back()">home</a></h5>
   </div>
 
 </div>
@@ -50,7 +52,7 @@
   });
   glot.assign('sided', {
     en: '-sided dice,',
-    ja: '面サイコロを振って'
+    ja: '面サイコロを振ります。'
   });
   glot.assign('youwin', {
     en: 'you win when the value is greater than or equal to',
@@ -68,6 +70,7 @@
 
   const digits = 8; // should determine by max
   var block = '';
+  var doWinLose = true;
 
   $("#start").on("click", function () {
      get_cur();
@@ -98,8 +101,13 @@
           }
           prev = contents.height;
           let max = Number(document.getElementById('max').value);
-          let win = Number(document.getElementById('win').value);
-          let my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
+          let myurl = '';
+          if(doWinLose === true){
+            let win = Number(document.getElementById('win').value);
+            my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
+          }else{
+            my_url = urlbase + '?block=' + block + '&max=' + max;
+          }
           document.getElementById('copyTarget').value = my_url;
 
           if (c_block < block){
@@ -141,11 +149,14 @@
             let r = getRand(contents.hash,digits);
             console.log(r);
             let max = Number(document.getElementById('max').value);
-            let win = Number(document.getElementById('win').value);
             let dice = Math.floor(r*max + 1);
-            let win_lose = (dice - win >= 0);
-//             let win_lose = (r*max - win >= 0);
-            let win_lose_msg = (win_lose)? "You Win!":"You Lose!";
+            let win_lose_msg = '';
+            if (doWinLose === true){
+              let win = Number(document.getElementById('win').value);
+              let win_lose = (dice - win >= 0);
+              win_lose_msg = (win_lose)? "You Win!":"You Lose!";
+            }else{
+            }
             document.getElementById('result').innerHTML = dice;
             document.getElementById('result2').innerHTML = win_lose_msg;
         },
@@ -194,6 +205,10 @@
     win = para["win"];
     if (win !== undefined){
       document.getElementById('win').value = win;
+      $("#winlose").css("display", "block");
+    }else{
+      doWinLose = false;
+      $("#winlose").css("display", "none");
     }
     console.log(win);
 
