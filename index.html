@@ -6,6 +6,23 @@
   <link rel="stylesheet" href="https://obniz.io/css/starter-sample.css">
   <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/glottologist"></script>
+
+  <!-- PWA for iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PublicDice">
+  <link rel="apple-touch-icon" href="https://qurihara.github.io/publicdice/icon/ios/appicon-76@2x.png">
+
+  <!-- PWA for android -->
+  <link rel="manifest" href="https://qurihara.github.io/publicdice/manifest.json">
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('https://qurihara.github.io/publicdice/sw.js')
+      .then((reg) => {
+        console.log('Service worker registered.', reg);
+      });
+  }
+  </script>
 </head>
 <body>
 
@@ -41,6 +58,8 @@
         <div glot-model="days">days later</div>
       </button>
       <br>
+      <br>
+      <div glot-model="vary">The actual time may vary.</div>
     </div>
   </div>
 
@@ -72,22 +91,26 @@
     ja: '以上の値が出たらあなたの勝ちです。'
   });
   glot.assign('donow', {
-    en: 'Do Now',
-    ja: '今すぐ勝負'
+    en: 'Roll now',
+    ja: '今すぐ振る'
   });
   glot.assign('mins', {
-    en: 'minutes later',
-    ja: '分後に勝負'
+    en: 'minutes later, roll',
+    ja: '分後に振る'
   });
   glot.assign('hours', {
-    en: 'hours later',
-    ja: '時間後に勝負'
+    en: 'hours later, roll',
+    ja: '時間後に振る'
   });
   glot.assign('days', {
-    en: 'days later',
-    ja: '日後に勝負'
+    en: 'days later, roll',
+    ja: '日後に振る'
   });
-  glot.render();
+  glot.assign('vary', {
+    en: 'The actual time may vary.',
+    ja: '※ 時間は目安です。'
+  });
+  glot.render();//'en');
 
   $("#start1").on("click", function () {
     let rblock = 1;
