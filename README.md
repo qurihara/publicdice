@@ -1,2 +1,4 @@
 # publicdice
-Public Dice with ETH Blockchain
+PublicDice with ETH Blockchain
+
+Demo [https://qurihara.github.io/publicdice/]
