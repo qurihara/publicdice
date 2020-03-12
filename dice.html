@@ -5,16 +5,20 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://obniz.io/css/starter-sample.css">
   <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+  <script src="https://unpkg.com/glottologist"></script>
 </head>
 <body>
 
 <div class="wrap">
   <div class="print">
-    <h3 class="text-center">Public Dice with ETH Blockchain</h3>
+    <h3 class="text-center">PublicDice with ETH Blockchain</h3>
     <div>
-      Using a <input type="text" id="max" value="6">-sided dice,<br>
-      you win when the value >= <input type="text" id="win" value="4">
-      <button class="btn btn-primary" id="start">Start</button>
+      <div glot-model="using">Using a</div>
+      <input type="text" id="max" value="6" readonly>
+      <div glot-model="sided">-sided dice,</div><br>
+      <div glot-model="youwin">you win when the value is greater than or equal to</div>
+      <input type="text" id="win" value="4" readonly>
+      <div glot-model="when"></div><br>
     </div>
   </div>
 
@@ -22,9 +26,13 @@
     <h3 class="text-center" id="result"></h3>
     <h3 class="text-center" id="result2"></h3>
     <h5 class="text-center" id="print"></h5>
+    <br>
+    <hr>
     <h5 class="text-center" id="permlink"></h5>
     <input id="copyTarget" type="text" value="" readonly>
-    <button onclick="copyToClipboard()" class="btn btn-primary" >Copy link</button><br>
+    <button onclick="copyToClipboard()" class="btn btn-primary" >
+      <div glot-model="copylink">Copy link</div>
+    </button><br>
     <h5 class="text-center" id="home"><a href="https://qurihara.github.io/publicdice/">home</a></h5>
   </div>
 
@@ -34,6 +42,25 @@
 
   // const urlbase = 'https://obniz.io/users/221/repo/200309_bc_dice.html';
   const urlbase = 'https://qurihara.github.io/publicdice/dice.html';
+
+  const glot = new Glottologist();
+  glot.assign('using', {
+    ja: ''
+  });
+  glot.assign('sided', {
+    ja: '面サイコロを振って'
+  });
+  glot.assign('youwin', {
+    ja: ''
+  });
+  glot.assign('when', {
+    ja: '以上の値が出たらあなたの勝ちです。'
+  });
+  glot.assign('copylink', {
+    ja: 'URLをコピー'
+  });
+
+  glot.render();
 
   const digits = 8; // should determine by max
   var block = '';
@@ -69,7 +96,6 @@
           let max = Number(document.getElementById('max').value);
           let win = Number(document.getElementById('win').value);
           let my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
-//           document.getElementById('permlink').innerHTML = '<a href="' + my_url + '">permalink</a>';
           document.getElementById('copyTarget').value = my_url;
 
           if (c_block < block){
@@ -77,7 +103,8 @@
             let block_ahead = block - c_block;
             let est = block_ahead * 15;
             document.getElementById('print').innerHTML = 'You need to wait for ' + block_ahead + ' more block(s).<br> (about ' + est + ' seconds)'
-            + '<br><img src= https://www.pixelimage.jp/blog/images_loading_gif/icon_loader_d_ww_01_s1.gif>';
+            + '<br><br><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
+            $("#blcs").val(block_ahead);
             setTimeout(get_cur, 15000);
           }
           else{
