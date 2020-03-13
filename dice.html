@@ -17,8 +17,8 @@
       <input type="text" id="max" value="6" readonly>
       <div glot-model="sided">-sided dice,</div><br>
       <div id="winlose"display="none">
-        <div glot-model="youwin">you win when the value is greater than or equal to</div>
-        <input type="text" id="win" value="4" readonly>
+        <div glot-model="youwin">you win when the value is less than or equal to</div>
+        <input type="text" id="win" value="3" readonly>
         <div glot-model="when"></div><br>
       </div>
     </div>
@@ -34,8 +34,12 @@
     <input id="copyTarget" type="text" value="" readonly>
     <button onclick="copyToClipboard()" class="btn btn-primary" >
       <div glot-model="copylink">Copy link</div>
-    </button><br>
-    <h5 class="text-center" id="home"><a href="javascript:history.back()">home</a></h5>
+    </button>
+    <br>
+    <br>
+    <h5 class="text-center" id="home"><a href="javascript:history.back()">
+      <div glot-model="new"></div><br>
+    </a></h5>
   </div>
 
 </div>
@@ -55,18 +59,22 @@
     ja: '面サイコロを振ります。'
   });
   glot.assign('youwin', {
-    en: 'you win when the value is greater than or equal to',
+    en: 'you win when the value is less than or equal to',
     ja: ''
   });
   glot.assign('when', {
     en: '',
-    ja: '以上の値が出たらあなたの勝ちです。'
+    ja: '以下の値が出たらあなたの勝ちです。'
   });
   glot.assign('copylink', {
     en: 'Copy link',
     ja: 'URLをコピー'
   });
-  glot.render();
+  glot.assign('new', {
+    en: 'New Dice',
+    ja: 'もう一度振る'
+  });
+  glot.render('en');
 
   const digits = 8; // should determine by max
   var block = '';
@@ -153,7 +161,7 @@
             let win_lose_msg = '';
             if (doWinLose === true){
               let win = Number(document.getElementById('win').value);
-              let win_lose = (dice - win >= 0);
+              let win_lose = (win - dice >= 0);
               win_lose_msg = (win_lose)? "You Win!":"You Lose!";
             }else{
             }

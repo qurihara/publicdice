@@ -33,8 +33,8 @@
       <div glot-model="using">Using a</div>
       <input type="text" id="max" value="6">
       <div glot-model="sided">-sided dice,</div><br>
-      <div glot-model="youwin">you win when the value is greater than or equal to</div>
-      <input type="text" id="win" value="4">
+      <div glot-model="youwin">you win when the value is less than or equal to</div>
+      <input type="text" id="win" value="3">
       <div glot-model="when"></div><br>
       <button class="btn btn-primary" id="start1">
         <div glot-model="donow">Do Now</div>
@@ -83,12 +83,12 @@
     ja: '面サイコロを振ります。'
   });
   glot.assign('youwin', {
-    en: 'you win when the value is greater than or equal to',
+    en: 'you win when the value is less than or equal to',
     ja: ''
   });
   glot.assign('when', {
     en: '',
-    ja: '以上の値が出たらあなたの勝ちです。'
+    ja: '以下の値が出たらあなたの勝ちです。'
   });
   glot.assign('donow', {
     en: 'Roll now',
