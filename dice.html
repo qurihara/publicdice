@@ -6,12 +6,13 @@
   <link rel="stylesheet" href="https://obniz.io/css/starter-sample.css">
   <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/glottologist"></script>
+  <title>PublicDice using Blockchain</title>
 </head>
 <body>
 
 <div class="wrap">
   <div class="print">
-    <h3 class="text-center">PublicDice with ETH Blockchain</h3>
+    <h3 class="text-center">PublicDice with Blockchain</h3>
     <div>
       <div glot-model="using">Using a</div>
       <input type="text" id="max" value="6" readonly>
@@ -36,10 +37,23 @@
       <div glot-model="copylink">Copy link</div>
     </button>
     <br>
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="I use this dice roll for ..." data-hashtags="publicdice" data-show-count="false"  data-lang="en">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <br>
     <h5 class="text-center" id="home"><a href="javascript:history.back()">
       <div glot-model="new"></div><br>
     </a></h5>
+
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title"><div glot-model="how"></div></h4>
+      <h5 class="card-text">
+        <div glot-model="howit"></div>
+      </h5>
+      <a href="https://www.unryu.org" class="card-link">(c)Kazutaka Kurihara</a>
+    </div>
   </div>
 
 </div>
@@ -72,7 +86,15 @@
   });
   glot.assign('new', {
     en: 'New Dice',
-    ja: 'もう一度振る'
+    ja: '新しくサイコロを振る'
+  });
+  glot.assign('how', {
+    en: 'How it works?',
+    ja: 'しくみ'
+  });
+  glot.assign('howit', {
+    en: 'The Ethereum blockchain is producing hash values every ~15 seconds. The latest hash value is hard-to-predict from any point in the past. It is globally unique and difficult to falsify. You can generate random numbers which ca be shared "sometimes" with others by applying a given open algorithm.',
+    ja: 'イーサリアムのブロックチェーンは、約１５秒おきに過去のいかなる時点からも予測が困難なハッシュ値という値を作り続けています。この値は全世界で唯一の値であり、改ざんが困難です。そのハッシュ値を使い、決められた公開アルゴリズムで乱数を作れば、他者と"ときどき"共有できる公平なサイコロとして活用できるのです。'
   });
   glot.render();//'en');
 

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://obniz.io/css/starter-sample.css">
   <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/glottologist"></script>
+  <title>PublicDice using Blockchain</title>
 
   <!-- PWA for iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,7 +29,7 @@
 
 <div class="wrap">
   <div class="print">
-    <h3 class="text-center">PublicDice with ETH Blockchain</h3>
+    <h3 class="text-center">PublicDice with Blockchain</h3>
     <div>
       <div glot-model="using">Using a</div>
       <input type="text" id="max" value="6">
@@ -66,6 +67,17 @@
   <div class="switch">
     <h5 class="text-center" id="print"></h5>
   </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title"><div glot-model="how"></div></h4>
+      <h5 class="card-text">
+        <div glot-model="howit"></div>
+      </h5>
+      <a href="https://www.unryu.org" class="card-link">(c)Kazutaka Kurihara</a>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -109,6 +121,14 @@
   glot.assign('vary', {
     en: 'The actual time may vary.',
     ja: '※ 時間は目安です。'
+  });
+  glot.assign('how', {
+    en: 'How it works?',
+    ja: 'しくみ'
+  });
+  glot.assign('howit', {
+    en: 'The Ethereum blockchain is producing hash values every ~15 seconds. The latest hash value is hard-to-predict from any point in the past. It is globally unique and difficult to falsify. You can generate random numbers which ca be shared "sometimes" with others by applying a given open algorithm.',
+    ja: 'イーサリアムのブロックチェーンは、約１５秒おきに過去のいかなる時点からも予測が困難なハッシュ値という値を作り続けています。この値は全世界で唯一の値であり、改ざんが困難です。そのハッシュ値を使い、決められた公開アルゴリズムで乱数を作れば、他者と"ときどき"共有できる公平なサイコロとして活用できるのです。'
   });
   glot.render();//'en');
 
