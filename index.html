@@ -29,14 +29,21 @@
 
 <div class="wrap">
   <div class="print">
-    <h3 class="text-center">PublicDice with Blockchain</h3>
+    <h3 class="text-center">PublicDice by Blockchain</h3>
     <div>
       <div glot-model="using">Using a</div>
       <input type="text" id="max" value="6">
       <div glot-model="sided">-sided dice,</div><br>
-      <div glot-model="youwin">you win when the value is less than or equal to</div>
+
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="checkwin" checked>
+        <label class="custom-control-label" for="checkwin">
+            <div glot-model="youwin">you win when the value is less than or equal to</div>
+        </label>
+      </div>
       <input type="text" id="win" value="3">
-      <div glot-model="when"></div><br>
+      <br>
+      <br>
       <button class="btn btn-primary" id="start1">
         <div glot-model="donow">Do Now</div>
       </button>
@@ -74,10 +81,14 @@
       <h5 class="card-text">
         <div glot-model="howit"></div>
       </h5>
+      <a href="https://github.com/qurihara/publicdice" class="card-link">github</a>
       <a href="https://www.unryu.org" class="card-link">(c)Kazutaka Kurihara</a>
     </div>
   </div>
 
+  <button type="button" class="btn btn-link" id="en">en</button>
+  /
+  <button type="button" class="btn btn-link" id="ja">ja</button>
 </div>
 
 <script>
@@ -96,11 +107,7 @@
   });
   glot.assign('youwin', {
     en: 'you win when the value is less than or equal to',
-    ja: ''
-  });
-  glot.assign('when', {
-    en: '',
-    ja: '以下の値が出たらあなたの勝ちです。'
+    ja: 'この数字以下の目が出たらあなたの勝ちです：'
   });
   glot.assign('donow', {
     en: 'Roll now',
@@ -127,10 +134,16 @@
     ja: 'しくみ'
   });
   glot.assign('howit', {
-    en: 'The Ethereum blockchain is producing hash values every ~15 seconds. The latest hash value is hard-to-predict from any point in the past. It is globally unique and difficult to falsify. You can generate random numbers which ca be shared "sometimes" with others by applying a given open algorithm.',
-    ja: 'イーサリアムのブロックチェーンは、約１５秒おきに過去のいかなる時点からも予測が困難なハッシュ値という値を作り続けています。この値は全世界で唯一の値であり、改ざんが困難です。そのハッシュ値を使い、決められた公開アルゴリズムで乱数を作れば、他者と"ときどき"共有できる公平なサイコロとして活用できるのです。'
+    en: 'The Ethereum blockchain is producing hash values every ~15 seconds. The latest hash value is hard-to-predict, globally unique and difficult to falsify. You can generate random numbers which ca be shared "sometimes" with others by applying a given open algorithm to the values. Yes, it still has some limitations. So use it for non-serious purposes🙂',
+    ja: 'イーサリアムのブロックチェーンは、約１５秒おきに予測が困難なハッシュ値という値を作り続けています。この値は全世界で唯一の値であり、改ざんも困難です。そのハッシュ値を使い、決められた公開アルゴリズムで乱数を作れば、他者と「ときどき」共有できる公平なサイコロとして活用できるのです。厳密に言えばいろいろ制限はあるので、あまり重くない用途にお使いください🙂'
   });
-  glot.render();//'en');
+ glot.render();//'en');
+//   glot.render('en');
+
+  var doWinLose = true;
+  $("#checkwin").change(function() {
+    doWinLose = this.checked;
+  });
 
   $("#start1").on("click", function () {
     let rblock = 1;
@@ -159,6 +172,13 @@
 //     get_cur(rblock);
 //   });
 
+  $("#en").on("click", function () {
+     glot.render('en');
+  });
+  $("#ja").on("click", function () {
+     glot.render('ja');
+  });
+
     var prev = '';
     function get_cur(rblock){
       let url = 'https://api.blockcypher.com/v1/eth/main';
@@ -176,7 +196,10 @@
           prev = contents.height;
           let max = Number(document.getElementById('max').value);
           let win = Number(document.getElementById('win').value);
-          let my_url = urlbase + '?block=' + block + '&max=' + max + '&win=' + win;
+          let my_url = urlbase + '?block=' + block + '&max=' + max;// + '&win=' + win;
+          if(doWinLose === true){
+            my_url += '&win=' + win;
+          }
           window.location.href = my_url;
         },
         error : function ( request, errorMessage ) {
