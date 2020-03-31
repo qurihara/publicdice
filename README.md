@@ -34,6 +34,8 @@ DEMO running as Google App Script:
 
 Needs 20 seconds to respond.
 
+Needs Google account login at the first usage.
+
 Returns a JSON:
 
 {
@@ -44,6 +46,6 @@ Returns a JSON:
   
   url: Block information for verification  
   
-  value: A generated random value of [0,1} by mapping the last 16 digits of the hash value
+  value: A generated random value of [0,1} like Math.random() by mapping the last 16 digits of the hash value
   
 }
