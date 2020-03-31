@@ -29,18 +29,14 @@ Slackのサイコロbotでいいじゃないか、という意見もあるかも
 
 ### REST API (api.gs)
 
-DEMO running as Google App Script:
-[https://script.google.com/macros/s/AKfycbxWrWR4vea8ZQ7UhuIZirt-Hm7Ny_7CBAmPFBCmdAAtGzk2AJU/exec]
-
-Needs 20 seconds to respond.
-
-Needs Google account login at the first usage.
-
-Returns a JSON:
+* DEMO running as Google App Script:[https://script.google.com/macros/s/AKfycbxWrWR4vea8ZQ7UhuIZirt-Hm7Ny_7CBAmPFBCmdAAtGzk2AJU/exec]
+* Needs 20 seconds to respond.
+* Needs Google account login at the first usage.
+* Returns a JSON:
 
 {
 
-  block: Block hight  
+  block: Block height  
 
   hash: Hash value
   
