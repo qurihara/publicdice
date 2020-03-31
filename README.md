@@ -33,8 +33,8 @@ Slackのサイコロbotでいいじゃないか、という意見もあるかも
 * Needs 20 seconds to respond.
 * Needs Google account login at the first usage.
 * Returns a JSON:
- ** block: Block height  
- ** hash: Hash value
- ** url: Block information for verification  
- ** value: A generated random value of [0,1} like Math.random() by mapping the last 16 digits of the hash value
+   * block: Block height  
+   * hash: Hash value
+   * url: Block information for verification  
+   * value: A generated random value of [0,1} like Math.random() by mapping the last 16 digits of the hash value
   
