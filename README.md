@@ -26,3 +26,22 @@ Slackのサイコロbotでいいじゃないか、という意見もあるかも
 
 （１）について、PublicDiceは静的なwebsiteであり、URLのみを通じて他者とやり取りできます。ですからチャットやメールやSNSなど、テキストさえやり取りできればどんな人とでもサイコロを共有できます。また、（２）について乱数発生に用いているブロックチェーンのハッシュ値というのは改ざんが困難かつ全世界で唯一の値であるため、信頼できる値として活用できるのです。（ただし、通常の利用であればほぼ問題ないものの、擬似乱数として完璧ではないので、若干注意が必要です。）
 一方で（３）について、PublicDiceはスマートコントラクトではないため、勝ち負け判定後の賞罰の執行には、強制力はありません。執行がスムーズに行える状況で活用する必要があります。たとえば、衆人環視によるプレッシャーを活用するためにtwitter上で賭けへの参加者に対し、参加意思表明と決定への遵守を公言させるとか、応募者に対する抽選のように、主催者側に決定権があることが自明な場合などです。
+
+### REST API (api.gs)
+
+DEMO running as Google App Script:
+[https://script.google.com/macros/s/AKfycbxWrWR4vea8ZQ7UhuIZirt-Hm7Ny_7CBAmPFBCmdAAtGzk2AJU/exec]
+
+Returns a JSON:
+
+{
+
+  block: Block hight
+  
+  hash: Hash value
+  
+  url: Block information for verification
+  
+  value: A generated random value of [0,1} by mapping the last 16 digits of the hash value
+
+}
