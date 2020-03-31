@@ -32,16 +32,13 @@ Slackのサイコロbotでいいじゃないか、という意見もあるかも
 DEMO running as Google App Script:
 [https://script.google.com/macros/s/AKfycbxWrWR4vea8ZQ7UhuIZirt-Hm7Ny_7CBAmPFBCmdAAtGzk2AJU/exec]
 
+Needs 20 seconds to respond.
+
 Returns a JSON:
 
 {
-
-  block: Block hight
-  
+  block: Block hight  
   hash: Hash value
-  
-  url: Block information for verification
-  
+  url: Block information for verification  
   value: A generated random value of [0,1} by mapping the last 16 digits of the hash value
-
 }
