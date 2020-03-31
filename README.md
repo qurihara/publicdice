@@ -37,8 +37,13 @@ Needs 20 seconds to respond.
 Returns a JSON:
 
 {
+
   block: Block hight  
+
   hash: Hash value
+  
   url: Block information for verification  
+  
   value: A generated random value of [0,1} by mapping the last 16 digits of the hash value
+  
 }
