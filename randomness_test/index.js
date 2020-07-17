@@ -36,7 +36,8 @@ function getBlock(block) {
             var r = JSON.parse(events);
             // console.log(r);
             if (r.hash != undefined) {
-                console.log(block + "," + r.hash);
+                let rnd = getRand(r.hash, digits);
+                console.log(block + "," + r.hash + "," + rnd);
             }
 
 
@@ -50,3 +51,10 @@ function getBlock(block) {
     req.end();
 }
 
+const digits = 16; // should determine by max
+function getRand(hash, digits) {
+    let x = hash.substr(hash.length - digits, digits);
+    let d = parseInt(x, 16);
+    let rnd = d / Math.pow(16, digits);
+    return rnd;
+}
