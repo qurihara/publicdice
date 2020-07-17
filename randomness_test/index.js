@@ -3,13 +3,13 @@ const https = require('https');
 const { kMaxLength } = require('buffer');
 
 const MAX = 2500;
-const START_HEIGHT = 10474012;
+const START_HEIGHT = 10473813;//10474012;
 const WAIT = 20000;//60 * 60 * 1000 / 200;
 
 async function main() {
 
-    for (let i = 0; i < MAX; i++) {
-        let b = START_HEIGHT - i;
+    for (let b = START_HEIGHT; b >= 0; b--) {
+        // let b = START_HEIGHT - i;
         getBlock(b);
         await sleep(WAIT);
     }
