@@ -3,7 +3,7 @@ const https = require('https');
 const { kMaxLength } = require('buffer');
 
 const MAX = 2500;
-const START_HEIGHT = 10472945;//10473673;//10473813;//10474012;
+const START_HEIGHT = 10472661;//10472945;//10473673;//10473813;//10474012;
 const WAIT = 20000;//60 * 60 * 1000 / 200;
 
 async function main() {
