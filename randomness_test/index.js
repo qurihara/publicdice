@@ -3,7 +3,7 @@ const https = require('https');
 const { kMaxLength } = require('buffer');
 
 const MAX = 2500;
-const START_HEIGHT = 10467965;//10469267;//10472661;//10472945;//10473673;//10473813;//10474012;
+const START_HEIGHT = 10467850;//10467965;//10469267;//10472661;//10472945;//10473673;//10473813;//10474012;
 const WAIT = 20000;//60 * 60 * 1000 / 200;
 
 async function main() {
@@ -39,9 +39,11 @@ function getBlock(block) {
                 // console.log(r);
                 if (r.hash != undefined) {
                     let rnd = getRand(r.hash, digits);
-                    console.log(block + "," + r.hash + "," + rnd);
+                    console.log(block + "," + r.hash + "," + rnd + "," + r.nonce);
                 }
-            } catch (e) { }
+            } catch (e) {
+                // console.log(e)
+            }
         });
     })
 
