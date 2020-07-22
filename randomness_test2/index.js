@@ -1,4 +1,4 @@
-const async = require(‘async’);
+const async = require('async');
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
@@ -47,7 +47,8 @@ async.whilst(() => i <= 2, (cb) => {
         i++;
         cb();
     });
-}, () => process.exit(0));
+}, (e) => console.log(e));
+// }, () => process.exit(0));
 
 
 function getBlock(block) {
