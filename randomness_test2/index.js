@@ -25,7 +25,7 @@ async function main() {
 main();
 
 function getBlock(block) {
-    web3.eth.getBlock(i, (error, result) => {
+    web3.eth.getBlock(block, (error, result) => {
         console.log(result);
         if (result.hash != undefined) {
             let rnd = getRand(result.hash, digits);
