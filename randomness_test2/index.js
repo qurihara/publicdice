@@ -6,6 +6,7 @@ if (process.argv.length < 3) {
     process.exit(1);
 }
 const START_BLOCK = +process.argv[2];
+const WAIT = 1000;
 
 function sleep(time) {
     return new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ main();
 
 function getBlock(block) {
     web3.eth.getBlock(block, (error, result) => {
+        console.log(error);
         console.log(result);
         if (result.hash != undefined) {
             let rnd = getRand(result.hash, digits);
