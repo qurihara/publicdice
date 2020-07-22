@@ -1,3 +1,4 @@
+const async = require(‘async’);
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
@@ -7,6 +8,19 @@ if (process.argv.length < 3) {
 }
 const START_BLOCK = +process.argv[2];
 const WAIT = 1000;
+
+// web3.eth.isSyncing().then((syncing) => {
+//     let i = START_BLOCK;
+//     async.whilst(() => i <= syncing.currentBlock, (cb) => {
+//         web3.eth.getBlock(i).then((block) => {
+//             console.log(i + ',' + web3.utils.hexToNumberString(block.nonce));
+//             i++;
+//             cb();
+//         });
+//     }, () => process.exit(0));
+// });
+
+
 
 function sleep(time) {
     return new Promise((resolve, reject) => {
@@ -23,7 +37,18 @@ async function main() {
         await sleep(WAIT);
     }
 }
-main();
+// main();
+
+let i = START_BLOCK;
+// async.whilst(() => i <= syncing.currentBlock, (cb) => {
+async.whilst(() => i <= 2, (cb) => {
+    web3.eth.getBlock(i).then((block) => {
+        console.log(i + ',' + web3.utils.hexToNumberString(block.nonce));
+        i++;
+        cb();
+    });
+}, () => process.exit(0));
+
 
 function getBlock(block) {
     web3.eth.getBlock(block, (error, result) => {
