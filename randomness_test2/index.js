@@ -27,14 +27,15 @@ main();
 
 function getBlock(block) {
     web3.eth.getBlock(block, (error, result) => {
-        console.log(error);
-        console.log(result);
-        if (result.hash != undefined) {
+        if (error != null) {
+            console.log(block + "," + error);
+        }
+        // console.log(result);
+        if (result != undefined) {
             let rnd = getRand(result.hash, digits);
             console.log(block + "," + result.hash + "," + rnd + "," + result.nonce);
         }
     });
-
 }
 
 const digits = 16; // should determine by max
